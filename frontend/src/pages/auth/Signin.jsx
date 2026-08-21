@@ -2,8 +2,11 @@ import { FormInput } from "lucide-react";
 import React, { useState } from "react";
 import axios from "axios";
 import apiClient from "../../ApiClient/interceptor";
+import { useAuth } from "../../context/AuthContext";
 
 const Signin = () => {
+  const { setUser, user, login } = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,8 +20,8 @@ const Signin = () => {
 
   const signin = async (formData) => {
     try {
-      const response = await apiClient.post("auth/signin", formData);
-      console.log(response, "test");
+      const response = await login(formData);
+      console.log(response, "by context");
     } catch (err) {
       console.log(err.message);
     }

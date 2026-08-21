@@ -5,6 +5,7 @@ import Budget from "./pages/Budget";
 import CreateBudget from "./pages/CreateBudget";
 import Signin from "./pages/auth/Signin";
 import Signup from "./pages/auth/Signup";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   const router = createBrowserRouter([
@@ -38,7 +39,9 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </>
   );
 }
