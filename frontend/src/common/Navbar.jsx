@@ -2,13 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   return (
     <header>
-      <div className="logo">
-        Budget Baby {user?.email} {user?.userName}{" "}
-      </div>
+      <div className="logo">Budget Baby</div>
       <nav>
         <div>
           <Link className="link" to="/">
@@ -28,12 +26,22 @@ const Navbar = () => {
       </nav>
 
       <div className="auth">
-        <Link className="link" to="/signin">
-          signin
-        </Link>
-        <Link className="link" to="/signup">
-          signup
-        </Link>
+        {isAuthenticated ? (
+          <>
+            welcome back{user?.email}
+            <p>logout</p>
+          </>
+        ) : (
+          <>
+            {" "}
+            <Link className="link" to="/signin">
+              signin
+            </Link>
+            <Link className="link" to="/signup">
+              signup
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );

@@ -1,9 +1,21 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import apiClient from "../ApiClient/interceptor";
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const getUser = async () => {
+    try {
+      const response = await apiClient.get("auth/get-user");
+      setUser(response.data.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
+
   const login = async (formData) => {
     try {
       const response = await apiClient.post("auth/signin", formData);
@@ -17,6 +29,7 @@ export const AuthProvider = ({ children }) => {
     user,
     setUser,
     login,
+    isAuthenticated: !!user,
   };
   return (
     <>
