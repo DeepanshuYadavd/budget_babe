@@ -104,3 +104,15 @@ export const getUser = async (req, res, next) => {
     });
   }
 };
+
+export const signout = async (req, res, next) => {
+  try {
+    return res.clearCookie("token").status(200).json({
+      message: "Sign out successfully",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+};

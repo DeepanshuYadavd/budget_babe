@@ -29,7 +29,9 @@ const Navbar = () => {
         {isAuthenticated ? (
           <>
             welcome back{user?.email}
-            <p>logout</p>
+            <Link className="link" to="/sign-out">
+              Sign out
+            </Link>
           </>
         ) : (
           <>

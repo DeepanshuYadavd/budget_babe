@@ -6,6 +6,7 @@ import CreateBudget from "./pages/CreateBudget";
 import Signin from "./pages/auth/Signin";
 import Signup from "./pages/auth/Signup";
 import { AuthProvider } from "./context/AuthContext";
+import SignOut from "./pages/auth/SignOut";
 
 function App() {
   const router = createBrowserRouter([
@@ -32,6 +33,10 @@ function App() {
         {
           path: "/signup",
           element: <Signup />,
+        },
+        {
+          path: "/sign-out",
+          element: <SignOut />,
         },
       ],
     },
