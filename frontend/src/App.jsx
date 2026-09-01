@@ -7,6 +7,7 @@ import Signin from "./pages/auth/Signin";
 import Signup from "./pages/auth/Signup";
 import { AuthProvider } from "./context/AuthContext";
 import SignOut from "./pages/auth/SignOut";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -22,10 +23,7 @@ function App() {
           path: "/budget",
           element: <Budget />,
         },
-        {
-          path: "/create-budget",
-          element: <CreateBudget />,
-        },
+
         {
           path: "/signin",
           element: <Signin />,
@@ -37,6 +35,16 @@ function App() {
         {
           path: "/sign-out",
           element: <SignOut />,
+        },
+
+        {
+          element: <ProtectedRoute />,
+          children: [
+            {
+              path: "/create-budget",
+              element: <CreateBudget />,
+            },
+          ],
         },
       ],
     },

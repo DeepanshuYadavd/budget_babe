@@ -4,7 +4,7 @@ const apiClient = axios.create({
   baseURL: "http://localhost:3000/api/",
   withCredentials: true,
 });
-  
+
 // request:
 apiClient.interceptors.request.use(
   (config) => {
@@ -20,7 +20,6 @@ apiClient.interceptors.request.use(
 //  response:
 apiClient.interceptors.response.use(
   (response) => {
-    console.log(response);
     return response;
   },
   (error) => {

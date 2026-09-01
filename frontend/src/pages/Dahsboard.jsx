@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 const Dahsboard = () => {
-  useEffect(() => {
-    console.log("running");
-    return () => {
-      console.log("running after demount");
-    };
-  }, []);
+
 
   return (
     <>
       <div>
-        <h1>useEffect </h1>
+        <h1>this is dashboard page </h1>
       </div>
     </>
   );

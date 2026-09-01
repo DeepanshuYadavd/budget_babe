@@ -4,12 +4,15 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const getUser = async () => {
     try {
       const response = await apiClient.get("auth/get-user");
       setUser(response.data.data);
     } catch (err) {
       console.log(err.message);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -23,12 +26,15 @@ export const AuthProvider = ({ children }) => {
       return response.data.data;
     } catch (err) {
       console.log(err.message);
+      throw err;
     }
   };
   const value = {
     user,
     setUser,
     login,
+    getUser,
+    loading,
     isAuthenticated: !!user,
   };
   return (

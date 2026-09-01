@@ -28,7 +28,7 @@ const Navbar = () => {
       <div className="auth">
         {isAuthenticated ? (
           <>
-            welcome back{user?.email}
+            Welcome back, {user?.userName || user?.email}
             <Link className="link" to="/sign-out">
               Sign out
             </Link>
@@ -37,10 +37,10 @@ const Navbar = () => {
           <>
             {" "}
             <Link className="link" to="/signin">
-              signin
+              Sign In
             </Link>
-            <Link className="link" to="/signup">
-              signup
+            <Link className="link btn-signup" to="/signup">
+              Sign Up
             </Link>
           </>
         )}
