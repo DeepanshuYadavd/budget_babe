@@ -7,6 +7,14 @@ const CreateBudget = () => {
   const [createCategoryData, setcreateCategoryData] = useState({
     category: "",
   });
+
+  //  create budget:
+  const [budgetData, setBudgetData] = useState({
+    category: "",
+    amount: "",
+    month: "",
+    year: "",
+  });
   const getCategories = async () => {
     try {
       const response = await apiClient.get("/category/get");
@@ -93,11 +101,23 @@ const CreateBudget = () => {
     },
   ];
 
+  const handleChange = (e) => {
+    setBudgetData({
+      ...budgetData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const submitBudget = (e) => {
+    e.preventDefault();
+    console.log(budgetData, "test");
+  };
+
   return (
     <>
       <main>
         <h1>create your budget here :</h1>
-        <form>
+        <form onSubmit={submitBudget}>
           <div className="category">
             <label>category</label>
             {categoryLoader ? (
@@ -118,7 +138,7 @@ const CreateBudget = () => {
               </>
             ) : (
               <>
-                <select name="" id="">
+                <select name="category" onChange={handleChange}>
                   {categories.map((cat) => (
                     <option key={cat._id} value={cat._id}>
                       {cat.category}
@@ -152,14 +172,19 @@ const CreateBudget = () => {
               )}
             </div>
           </div>
-
           <div className="amount">
             <label>Amount:</label>
-            <input type="number" placeholder="Enter Your Amount" />
+            <input
+              type="number"
+              value={budgetData.amount}
+              placeholder="Enter Your Amount"
+              name="amount"
+              onChange={handleChange}
+            />
           </div>
           <div className="month">
             <label>Month:</label>
-            <select>
+            <select onChange={handleChange} name="month">
               {month.map((m) => (
                 <option key={m.value} value={m.value}>
                   {m.name}
@@ -169,8 +194,18 @@ const CreateBudget = () => {
           </div>
           <div className="year">
             <label>Year:</label>
-            <input type="number" placeholder="Enter Your Year" />
+            <input
+              type="number"
+              placeholder="Enter Your Year"
+              min="2026"
+              max="2100"
+              onChange={handleChange}
+              value={budgetData.year}
+              name="year"
+            />
           </div>
+
+          <button type="submit">create budget</button>
         </form>
       </main>
     </>
