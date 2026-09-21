@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import authRouter from "./api/routes/auth.routes.js";
 import categoryRouter from "./api/routes/category.routes.js";
 import budgetRouter from "./api/routes/budget.routes.js";
+import purchaseRouter from "./api/routes/purchase.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -25,5 +26,6 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/budget", budgetRouter);
+app.use("/api/purchase", purchaseRouter);
 
 export default app;

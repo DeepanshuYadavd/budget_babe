@@ -43,7 +43,7 @@ export const createBudget = async (req, res, next) => {
 
 export const getBudget = async (req, res, next) => {
   try {
-    const budget = await Budget.find().populate([
+    const budget = await Budget.find({ user: req.user._id }).populate([
       {
         path: "user",
         select: "-password",
@@ -66,3 +66,33 @@ export const getBudget = async (req, res, next) => {
     });
   }
 };
+
+export const getBudgetById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const budget = await Budget.findOne({ _id: id, user: req.user._id }).populate([
+      {
+        path: "user",
+        select: "-password",
+      },
+      {
+        path: "category",
+      },
+    ]);
+
+    if (!budget) {
+      return res.status(404).json({
+        message: "Budget Not found",
+      });
+    }
+
+    return res.status(200).json({
+      budget,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
