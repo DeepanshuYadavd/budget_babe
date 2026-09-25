@@ -4,25 +4,21 @@ import { Budget } from "../modal/budget.schema.js";
 export const createPurchase = async (req, res, next) => {
   try {
     const { title, amount, budgetId, note, date } = req.body;
-
     if (!title || !amount || !budgetId) {
       return res.status(400).json({
         message: "Title, amount, and budgetId are required",
       });
     }
-
     // Verify budget exists and belongs to user
     const budget = await Budget.findOne({
       _id: budgetId,
       user: req.user._id,
     });
-
     if (!budget) {
       return res.status(404).json({
         message: "Budget not found",
       });
     }
-
     const purchase = await Purchase.create({
       user: req.user._id,
       budget: budget._id,
@@ -34,7 +30,6 @@ export const createPurchase = async (req, res, next) => {
       month: budget.month,
       year: budget.year,
     });
-
     return res.status(201).json({
       message: "Purchase recorded successfully",
       purchase,
